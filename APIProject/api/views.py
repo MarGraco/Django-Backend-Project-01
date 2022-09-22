@@ -12,7 +12,20 @@ from rest_framework import mixins
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 
-class ArticleViewSet(viewsets.ViewSet):
+class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
+                     mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
+
+
+
+
+
+
+'''class ArticleViewSet(viewsets.ViewSet):
 
     def list(self, request):
         articles = Article.objects.all()
@@ -44,14 +57,7 @@ class ArticleViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         article = Article.objects.get(pk=pk)
         article.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-
-
-
+        return Response(status=status.HTTP_204_NO_CONTENT)'''
 
 
 '''
